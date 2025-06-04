@@ -1,0 +1,2 @@
+# Prints usernames and their interactive shells by filtering /etc/passwd for typical login shells.
+grep -E '/bin/(bash|zsh|fish|tcsh)$' /etc/passwd | awk -F ':' '{ printf "USER %s is using %s as their shell.\n", $1, $7 }'
