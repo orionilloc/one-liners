@@ -1,5 +1,8 @@
 # Prints usernames and their interactive shells by filtering /etc/passwd for typical login shells.
 grep -E '/bin/(bash|zsh|fish|tcsh)$' /etc/passwd | awk -F ':' '{ printf "USER %s is using %s as their shell.\n", $1, $7 }'
 
-# Prints usable storage in home directories of all users (human-readable format)
+# Prints usable storage in home directories of all users in a human-readable format.
 du -sh /home/* 2>/dev/null
+
+# Lists the 10 largest files in the current directory and subdirectories not owned by root, suppressing permission errors.
+sudo find . -type f -exec ls -lh {} + 2>/dev/null | awk '$3 != "root" {print $5, $3, $9}' | sort -hr | head -n 10
