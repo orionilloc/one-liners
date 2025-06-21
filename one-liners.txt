@@ -6,3 +6,7 @@ du -sh /home/* 2>/dev/null
 
 # Lists the 10 largest files in the current directory and subdirectories not owned by root, suppressing permission errors.
 sudo find . -type f -exec ls -lh {} + 2>/dev/null | awk '$3 != "root" {print $5, $3, $9}' | sort -hr | head -n 10
+
+# Lists groups with at least one user from the /etc/group file.
+awk -F':' '$4 != "" { printf "Group \"%s\" includes: %s\n", $1, $4 }' /etc/group
+
