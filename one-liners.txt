@@ -10,3 +10,6 @@ sudo find . -type f -exec ls -lh {} + 2>/dev/null | awk '$3 != "root" {print $5,
 # Lists groups with at least one user from the /etc/group file.
 awk -F':' '$4 != "" { printf "Group \"%s\" includes: %s\n", $1, $4 }' /etc/group
 
+# Lists typically non-system accounts from the /etc/passwd file.
+awk -F ':' '$3 >= 1000 { printf "USER %s has UID %s\n", $1, $3 }' /etc/passwd
+
