@@ -13,3 +13,6 @@ awk -F':' '$4 != "" { printf "Group \"%s\" includes: %s\n", $1, $4 }' /etc/group
 # Lists typically system accounts with a UID great-than-or-equal-to 1000 from the /etc/passwd file.
 awk -F ':' '$3 >= 1000 { printf "USER %s has UID %s\n", $1, $3 }' /etc/passwd
 
+# Lists users and their respective shell environments from the /etc/passwd file.
+awk -F ':' '$7 ~ /bash/ {printf "The user %s uses %s as their shell\n", $1, $7 }' /etc/passwd
+
