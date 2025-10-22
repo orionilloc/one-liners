@@ -16,3 +16,5 @@ awk -F ':' '$3 >= 1000 { printf "USER %s has UID %s\n", $1, $3 }' /etc/passwd
 # Lists users and their respective shell environments from the /etc/passwd file.
 awk -F ':' '$7 ~ /bash/ {printf "The user %s uses %s as their shell\n", $1, $7 }' /etc/passwd
 
+# Lists filesystem at or above 50 percent of storage capacity.
+df -h | sed 's/%/ /g' | awk -F ' ' 'NR>1 && $5 >= 50 {$1=$1; printf "WARNING: Filesystem %s mounted on %s is at %s percent of storage capacity.\n", $1, $6, $5 }'
